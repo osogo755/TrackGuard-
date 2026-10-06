@@ -46,6 +46,7 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.content.ContextCompat
+import com.example.service.TrackingService
 import com.example.ui.MainViewModel
 import com.example.ui.screens.FinderModeScreen
 import com.example.ui.screens.HomeScreen
@@ -96,8 +97,10 @@ fun MainAppContainer(viewModel: MainViewModel) {
         contract = ActivityResultContracts.RequestMultiplePermissions()
     ) { permissions ->
         val fineLocationGranted = permissions[Manifest.permission.ACCESS_FINE_LOCATION] ?: false
-        if (fineLocationGranted) {
+        val coarseLocationGranted = permissions[Manifest.permission.ACCESS_COARSE_LOCATION] ?: false
+        if (fineLocationGranted || coarseLocationGranted) {
             viewModel.refreshLocationNow()
+            TrackingService.start(context)
         }
     }
 
@@ -112,12 +115,15 @@ fun MainAppContainer(viewModel: MainViewModel) {
 
         val hasLocation = ContextCompat.checkSelfPermission(
             context, Manifest.permission.ACCESS_FINE_LOCATION
+        ) == PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(
+            context, Manifest.permission.ACCESS_COARSE_LOCATION
         ) == PackageManager.PERMISSION_GRANTED
 
         if (!hasLocation) {
             permissionLauncher.launch(permissionsToRequest.toTypedArray())
         } else {
             viewModel.refreshLocationNow()
+            TrackingService.start(context)
         }
     }
 
