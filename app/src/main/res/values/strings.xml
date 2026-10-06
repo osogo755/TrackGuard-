@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">TrackGuard</string>
+    <string name="app_subtitle">Anti-Theft &amp; Recovery Shield</string>
+    <string name="device_admin_description">TrackGuard requires device administrator rights to lock the device remotely and protect against unauthorized shutdown.</string>
+</resources>

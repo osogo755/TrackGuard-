@@ -1,0 +1,6 @@
+{
+  "name": "TrackGuard",
+  "description": "Anti-theft protection with real-time tracking, offline last-known location, remote lock, emergency siren, and power-off password protection.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
